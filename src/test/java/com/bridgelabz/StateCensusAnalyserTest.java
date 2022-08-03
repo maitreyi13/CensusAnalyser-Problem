@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 public class StateCensusAnalyserTest {
     private static final String STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCensusData.csv";
     private static final String WRONG_STATE_CENSUS_DATA_PATH = "./src/main/resources/IndiaStateCensusData.csv";
-    private static final String WRONG_TYPE_STATE_CENSUS_DATA_PATH = "./src/test/resources/StateCensusData.pdf";
+    private static final String WRONG_TYPE_STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCensusData.pdf";
+    private static final String WRONG_DELIMITER_STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCode.csv";
 
     StateCensusAnalyser censusAnalyserProblem = new StateCensusAnalyser();
     @Test
@@ -31,7 +32,18 @@ public class StateCensusAnalyserTest {
             int numberOfRecord = censusAnalyserProblem.loadIndianCensusData(WRONG_TYPE_STATE_CENSUS_DATA_PATH);
             Assertions.assertEquals(29,numberOfRecord);
         } catch (StateCensusAnalyserException e) {
-            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.NO_SUCH_TYPE_FOUND,e.type,"No such type found");
+            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.NO_SUCH_TYPE_FOUND,e.type,"Wrong input type");
+        }
+    }
+
+    @Test
+    void  givenIndianCensusCsvFile_WhenImproperDelimiter_ShouldThrowException() {
+        System.out.println("TC 1.4");
+        try {
+            int numberOfRecord = censusAnalyserProblem.loadIndianCensusData(WRONG_DELIMITER_STATE_CENSUS_DATA_PATH);
+            Assertions.assertEquals(29,numberOfRecord);
+        } catch (StateCensusAnalyserException e) {
+            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.WRONG_DELIMITER,e.type,"Wrong delimiters in file");
         }
     }
 }

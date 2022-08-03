@@ -34,6 +34,8 @@ public class StateCensusAnalyser {
         } catch (IOException e) {
             throw new StateCensusAnalyserException(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.NO_SUCH_FILE_FOUND,
                     e.getMessage());
+        }catch (RuntimeException e) {
+            throw new StateCensusAnalyserException(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.WRONG_DELIMITER, "File not found");
         }
         return recordCount;
     }
