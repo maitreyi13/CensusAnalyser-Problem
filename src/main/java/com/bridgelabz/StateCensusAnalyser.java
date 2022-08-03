@@ -8,10 +8,13 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class StateCensusAnalyser {
     public int loadIndianCensusData(String csvFilePath) throws StateCensusAnalyserException {
         int recordCount = 0;
+        if (!Objects.equals(getFileExtension(csvFilePath), ".csv"))
+            throw new StateCensusAnalyserException(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.NO_SUCH_TYPE_FOUND,"Wrong input type");
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             CsvToBeanBuilder<CSVStateCensus> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(CSVStateCensus.class);
@@ -33,6 +36,17 @@ public class StateCensusAnalyser {
                     e.getMessage());
         }
         return recordCount;
+    }
+    private static String getFileExtension(String file) {
+        String extension = "";
+        try {
+            if (file != null) {
+                extension = file.substring(file.lastIndexOf("."));
+            }
+        } catch (Exception e) {
+            extension = "";
+        }
+        return extension;
     }
 
     public static void main(String[] args) {
