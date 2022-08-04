@@ -13,6 +13,7 @@ public class StateCensusAnalyserTest {
     private static final String WRONG_INDIAN_STATE_CODE_INFORMATION_PATH = "./src/main/resources/IndiaStateCode.csv";
     private static final String WRONG_TYPE_INDIAN_STATE_CODE_INFORMATION_PATH = "./src/test/resources/IndiaStateCode.pdf";
     private static final String WRONG_DELIMITER_CENSUS_DATA_PATH="./src/test/resources/DelimiterCensusData.csv";
+    private static final String WRONG_HEADER_CENSUS_DATA_PATH = "./src/test/resources/WrongHeaderStateCensusData.csv";
 
     StateCensusAnalyser censusAnalyserProblem = new StateCensusAnalyser();
     CSVStates csvStates = new CSVStates();
@@ -98,11 +99,23 @@ public class StateCensusAnalyserTest {
 
     @Test
     void givenIndianStateCodeCsvFile_WhenImproperDelimiter_ShouldThrowException() {
+        System.out.println("TC 2.4");
         try {
             int numberOfRecord = censusAnalyserProblem.loadIndianCensusData(WRONG_DELIMITER_CENSUS_DATA_PATH);
             Assertions.assertEquals(37, numberOfRecord);
         } catch (StateCensusAnalyserException e) {
             Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.WRONG_DELIMITER_OR_HEADER, e.type,"Wrong delimiter added");
+        }
+    }
+
+    @Test
+    void givenStateCodeCsvFile_WhenImproperHeader_ShouldThrowException() {
+        System.out.println("TC 2.5");
+        try {
+            int numberOfRecord = censusAnalyserProblem.loadIndianCensusData(WRONG_HEADER_CENSUS_DATA_PATH);
+            Assertions.assertEquals(29,numberOfRecord);
+        } catch (StateCensusAnalyserException e) {
+            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.WRONG_DELIMITER_OR_HEADER,e.type,"Wrong input headers");
         }
     }
 }
