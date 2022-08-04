@@ -64,4 +64,10 @@ public class StateCensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndianStateCodeCsvFile_WhenProper_ShouldReturnCorrectRecordCount(){
+        System.out.println("TC 2.1");
+        int numberOfRecord = csvStates.loadIndianStateCodeData(INDIAN_STATE_CODE_INFORMATION_PATH);
+        Assertions.assertEquals(37, numberOfRecord);
+    }
 }
