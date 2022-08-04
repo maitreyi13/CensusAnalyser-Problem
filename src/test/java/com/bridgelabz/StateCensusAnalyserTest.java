@@ -1,14 +1,19 @@
+//UC1 UC2
 package com.bridgelabz;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 public class StateCensusAnalyserTest {
     private static final String STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCensusData.csv";
     private static final String WRONG_STATE_CENSUS_DATA_PATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String WRONG_TYPE_STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCensusData.pdf";
     private static final String WRONG_DELIMITER_STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCode.csv";
     private static final String WRONG_HEADER_STATE_CENSUS_DATA_PATH = "./src/test/resources/IndiaStateCode.csv";
+    private static final String INDIAN_STATE_CODE_INFORMATION_PATH = "./src/test/resources/IndiaStateCode.csv";
 
     StateCensusAnalyser censusAnalyserProblem = new StateCensusAnalyser();
+    CSVStates csvStates = new CSVStates();
+
     @Test
     void givenIndianCensusCsvFile_WhenProper_ShouldReturnCorrectRecord() throws StateCensusAnalyserException {
         System.out.println("TC1.1");
@@ -58,4 +63,5 @@ public class StateCensusAnalyserTest {
             Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserCustomExceptionType.WRONG_DELIMITER_OR_HEADER,e.type);
         }
     }
+
 }
