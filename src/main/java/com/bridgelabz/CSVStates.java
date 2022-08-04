@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 public class CSVStates {
     public int loadIndianStateCodeData(String csvFilePath) {
-        int recordCount = 0;
+        int recordCount1 = 0;
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             CsvToBean<IndianStateCode> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(IndianStateCode.class)
@@ -21,7 +21,7 @@ public class CSVStates {
             Iterator<IndianStateCode> statesCSVIterator = csvToBean.iterator();
             while (statesCSVIterator.hasNext()) {
                 IndianStateCode censusCSV = statesCSVIterator.next();
-                ++recordCount;
+                ++recordCount1;
                 System.out.print("SrNo: " + censusCSV.getSrNo() + ", ");
                 System.out.print("state: " + censusCSV.getState() + ", ");
                 System.out.print("Name: " + censusCSV.getName() + ", ");
@@ -32,6 +32,6 @@ public class CSVStates {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return recordCount;
+        return recordCount1;
     }
 }
